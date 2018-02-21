@@ -1,0 +1,94 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(grid)
+library(gridBase)
+library(gridExtra)
+library(DT)
+library(cowplot)
+library(formattable)
+library(RColorBrewer)
+library(colorspace)
+
+woFile <- "C:/Programming/RStudio/Generation/workorders.csv"
+
+source("main.R")
+```
+
+
+Closed Work Orders {data-orientation=columns}
+=======================================================================
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Closed/Completed Work Orders in Gen Stations
+```{r, warning = FALSE}
+wo <- getwoData(woFile)
+startYear <- 2017
+plotOpenClosedGSWOs(wo, "Closed", startYear)
+```
+
+### Closed/Completed Work Orders by Priority
+```{r, warning = FALSE}
+plotOpenClosedWOsByPriority(wo, "Closed", startYear)
+```
+
+### Total Labor Hours 
+```{r, warning = FALSE}
+plotOpenClosedWOsLaborHours(wo, "Closed", startYear)
+```
+
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### 2017 Closed Work Orders Priority Breakdown
+```{r, warning = FALSE}
+plotOpenClosedWOsByPriorityPie(wo, "Closed", startYear)
+```
+
+### 2017 Regular vs Overtime Breakdown Hours
+```{r, warning = FALSE}
+plotOpenClosedWOsLaborHoursPie(wo, "Closed", startYear)
+```
+
+
+Open Work Orders {data-orientation=columns}
+=======================================================================
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Open Work Orders in Gen Stations
+```{r, warning = FALSE}
+plotOpenClosedGSWOs(wo, "Open", startYear)
+```
+
+### Open Work Orders by Priority
+```{r, warning = FALSE}
+plotOpenClosedWOsByPriority(wo, "Open", startYear)
+```
+
+### Total Labor Hours
+```{r, warning = FALSE}
+plotOpenClosedWOsLaborHours(wo, "Open", startYear)
+```
+
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### 2017 Open Work Orders Priority Breakdown
+```{r, warning = FALSE}
+plotOpenClosedWOsByPriorityPie(wo, "Open", startYear)
+```
+
+### 2017 Regular vs Overtime Breakdown Hours
+```{r, warning = FALSE}
+plotOpenClosedWOsLaborHoursPie(wo, "Open", startYear)
+```
+
